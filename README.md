@@ -31,7 +31,7 @@ The AI in this section is focused on keeping you moving. It attempts to ensure y
 - Wellbeing upkeep to keep motivation
 
 ## Stack & Architechture
-This framework is focused on the AI aspect, with modern UI componenets for a responsive and clean appearance.
+This framework is focused on the AI aspect, with modern UI componenets for a responsive and clean appearance. Everything done will be within a docker container to provide a easy working environment for the variety of services. Additionally, with a cloud focus, development in such an environment allows for the stack to mimic the cloud and thus be easily migrated. 
 
 ### Frontend - React
 The frontend will be built entirely on react as it is incredibly popular and easy to improve. This framework offers others the chance to customize, and provides integration with many AI frameworks and efficient backends.
@@ -60,14 +60,26 @@ SQL is such a powerful tool and combined with an ORM makes managing a large set 
 This section is going to be pivoted soon, but provides a routing for myself and those that follow notes/ideas for how to develope this site and the skills required.
 
 ### Roadmap
-1. Bare Backend - Set up a simple fastAPI server that can handle some commands in python as this is the center of it all. 
-2. Database - Set up a database to start storing the data and connect it with python so there is something to show.
-3. Frontend - With data and processing, build something to provide visualize and access as an user
-4. Real Processing - Start hooking up all of the componenents and providing valueable processing
-5. AI/ML - With a dumb website, develope a seporate AI backbone that will power these tools
-6. Integration - With a tested website and AI, building atop the barebones API to connect all peices
-7. External APIs - Include more and more information and services for the website and models to work with
 
+1. Docker - Creating a docker environment will allow all development to be done within it, simulating the cloud environment it will eventually become.
+2. Bare Backend - Set up a simple fastAPI server that can handle some commands in python as this is the center of it all. 
+3. Database - Set up a database to start storing the data and connect it with python so there is something to show.
+4. Frontend - With data and processing, build something to provide visualize and access as an user
+5. Real Processing - Start hooking up all of the componenents and providing valueable processing
+6. Cloud migration - Once the website is running in a functional manor, get it uploaded onto the cloud to provide basic testing
+7. AI/ML - With a dumb website, develope a seporate AI backbone that will power these tools
+8. Integration - With a tested website and AI, building atop the barebones API to connect all peices
+9. External APIs - Include more and more information and services for the website and models to work with
+
+### Hosting
+Having the entire project containerized within docker makes it easy to get image uploaded into a cloud run environment. Azure is going to be the compute and hosting service, with Neon provide a postgreSQL database. The following services are used:
+
+- Frontend - Azure Static Web Apps: This provides a free way to host the serverless react frontend directly from the github, making an easy way to get the site supported.
+
+- Backend - Azure App Service: Runs the AI/ML code to provide the website with the processing it requires. Will ocassionaly sleep and running time is somewhat limited
+
+- Database - Neon: A permanently free postgreSQl database provides the perfect option for the smaller amounts of data and processing required for the project. Can easily connect with Azure using a connection url.
+- 
 ### Resources
 Hopefully this turns into a real resources section that can help more the website rather than myself. Currently is a way to learn how to build everyhting this defines. 
 Had AI do some sourcing, and took personal notes on top of that:
@@ -95,3 +107,4 @@ Had AI do some sourcing, and took personal notes on top of that:
 - For General ML : Start with [Scikit-learn's "Getting Started" Guide](https://scikit-learn.org/stable/getting_started.html). You'll learn the fundamental fit/predict pattern.
 
 - For NLP (like sentiment or keyword extraction): Use the [Hugging Face Transformers](https://huggingface.co/docs/transformers/index) library. Their documentation has a "Tasks" section that shows you how to load a pre-trained model for "Sentiment Analysis" or "Text Classification" in just a few lines of code.
+
