@@ -1,41 +1,51 @@
 import os
-from fastapi import FastAPI
-from sqlmodel import  SQLModel, create_engine, Session, select
 
-# --- Database Setup ---
-# Load the database URL
-DATABASE_URL = os.getenv("DATABASE_URL")
+from fastapi import FastAPI, status, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from sqlmodel import select, Session
+from db import db_setup, get_session
 
-# Create the database engine with moderate security
-engine = create_engine(DATABASE_URL, echo=True, connect_args={"sslmode": "require"})
-
-def db_setup():
-    """ Sets up the database by creating all tables."""
-    SQLModel.metadata.create_all(engine)
-
-
-# --- API Setup ---
-# Create the main application instance
+# Create the main app
 app = FastAPI(title="LazyJournals API")
+
+# Config CORS for frontend interaction
+origins = [
+    "http://localhost:5173",      # Vite Localhost
+    "http://127.0.0.1:5173",      # Vite Localhost IP
+]
+
+# Allow all headers and methods for now 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,        
+    allow_credentials=True,       
+    allow_methods=["*"],          
+    allow_headers=["*"],          
+) 
 
 @app.on_event("startup")
 def on_startup():
-    # db_setup()
-    print('Database is set up (not yet executed)')
     
-# Define a "route" for the root URL
-@app.get("/")
-def read_root():
-    """Returns a simple hello world message."""
+    # Ensure the db is set up
+    db_setup()
+    print('Database is set up')
+    
+@app.get("/") # Route for the URL
+def get_root():
+    """ Placeholder funcion for GET on the root"""
     return {"Hello": "World", "project": "LazyJournals"}
 
-@app.get('/api/db-status')
-def db_status():
+@app.get('/api/health') # Route to check db status
+def db_status(session: Session = Depends(get_session)):
     """ Checks the database connection status."""
+    
     try:
-        with Session(engine) as sesh:
-            result = sesh.exec(select(1))
-            
-        return {"status": "Database connection successful"}
+        result = session.exec(select(1))
+        
+        # If we can query, return a success status
+        return {"status": "healthy", "code": status.HTTP_200_OK}
+    
     except Exception as e:
-        return {"status": "Database connection error", "error": str(e)}
+        # If there's an error, raise an HTTP exception
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                            detail=f"Database connection error: {e}")
