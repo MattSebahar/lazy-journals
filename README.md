@@ -1,68 +1,85 @@
 # lazy-journals
+
 An AI backed modern journaling system to support productive daily updates.
 
 This project is an in progress full-stack web application designed to be a centralized hub for managing and accelerating personal and professional growth. It combines journal-keeping with AI-powered suggestions to help a developer learn new skills, manage projects, find a job, and maintain a balanced personal life.
 
 ## Goals and Vision
+
 This object has two main components, a journal, and an AI. It is meant to make journalling easy and worthwhile. There will be two journals, professional and a personal, each powered by AI to help find success where it matters most.
 
 ### The Technical Journal (TJ)
+
 Focused on developing skills and seeking out new opportunites, this journal provides multiple routes for learning new things. Some capabilities are:
+
 - Logging skills and technologies
 - Tracking projects and suggesting improvements
 - Managing the job market and applications
 
 ### TJ AI
+
 The AI for this journal is focused on revealing your strengths and weaknesses. It shows where you are excelling to help you work through interviews, as well as weaknesses to improve on to better prepare you. It focuses on:
+
 - Daily learning tasks (leetcode, youtube, etc.)
 - Complimentary frameworks to the basic skills
 - Current industry trends and news
 
 ### The Personal Journal (PJ)
+
 This is focused on ensureing devlopers get out into the real world once in a while. It supports keeping track of your daily activities to enable more to be fit in. It's main features are:
+
 - Hobby and activity trackers
 - To-do listings and priorities
 - Planning and reflection
- 
+
 ### PJ AI
+
 The AI in this section is focused on keeping you moving. It attempts to ensure you are still engaged outside of work, and suggest new alternatives. This provides:
+
 - Upcoming event reminders
 - Novel activites, events and articles
 - Wellbeing upkeep to keep motivation
 
 ## Stack & Architechture
-This framework is focused on the AI aspect, with modern UI componenets for a responsive and clean appearance. Everything done will be within a docker container to provide a easy working environment for the variety of services. Additionally, with a cloud focus, development in such an environment allows for the stack to mimic the cloud and thus be easily migrated. 
+
+This framework is focused on the AI aspect, with modern UI componenets for a responsive and clean appearance. Everything done will be within a docker container to provide a easy working environment for the variety of services. Additionally, with a cloud focus, development in such an environment allows for the stack to mimic the cloud and thus be easily migrated.
 
 ### Frontend - React
+
 The frontend will be built entirely on react as it is incredibly popular and easy to improve. This framework offers others the chance to customize, and provides integration with many AI frameworks and efficient backends.
 
 ### Backend - Python w/ FastAPI
+
 The choice of python is due to its AI development and ease to build a connection between data and react. It offers the services required to connect componenets as well as process the data as required.
+
 - Restful API: A restul API will be built in order to handle the data communcation between the databases and services.
 - Accounts: Personalized accounts can be made to customize their expereince on the site and must be utilized for processing
 - CRUD: for journals, projects, job apps, etc.
 - AI/ML Hosting: Provides the AI/ML models to power the website
 
 ### Database - PostgreSQL w/ SQLModel
+
 SQL is such a powerful tool and combined with an ORM makes managing a large set of data with many catogories incredibly fast. Using SQLModel means python can easily interact with the data as needed and push to the user as needed.
-- All users:  Each datapoint will contain their own set of unique entries
+
+- All users: Each datapoint will contain their own set of unique entries
   -tech entries: skill, projects, suggestions
   -personal entries: to-dos, hobbies, news
   -job applications and projects
 
-### APIs 
+### APIs
+
 - NewsAPI.org: Both external data searches and APIs will provide news to models to provide recent updates for users
 - Google/Youtube Data APIv3: Providing youtube videos for skill development or new hobbies will be accessed through google
 - Google JSON search API - Searching based upon key words from journals will provide novel ideas realted to their writing.
 
-
 ## Learning Objectives / Help
+
 This section is going to be pivoted soon, but provides a routing for myself and those that follow notes/ideas for how to develope this site and the skills required.
 
 ### Roadmap
 
 1. Docker - Creating a docker environment will allow all development to be done within it, simulating the cloud environment it will eventually become.
-2. Bare Backend - Set up a simple fastAPI server that can handle some commands in python as this is the center of it all. 
+2. Bare Backend - Set up a simple fastAPI server that can handle some commands in python as this is the center of it all.
 3. Database - Set up a database to start storing the data and connect it with python so there is something to show.
 4. Frontend - With data and processing, build something to provide visualize and access as an user
 5. Real Processing - Start hooking up all of the componenents and providing valueable processing
@@ -72,6 +89,7 @@ This section is going to be pivoted soon, but provides a routing for myself and 
 9. External APIs - Include more and more information and services for the website and models to work with
 
 ### Hosting
+
 Having the entire project containerized within docker makes it easy to get image uploaded into a cloud run environment. Azure is going to be the compute and hosting service, with Neon provide a postgreSQL database. The following services are used:
 
 - Frontend - Azure Static Web Apps: This provides a free way to host the serverless react frontend directly from the github, making an easy way to get the site supported.
@@ -79,12 +97,15 @@ Having the entire project containerized within docker makes it easy to get image
 - Backend - Azure App Service: Runs the AI/ML code to provide the website with the processing it requires. Will ocassionaly sleep and running time is somewhat limited
 
 - Database - Neon: A permanently free postgreSQl database provides the perfect option for the smaller amounts of data and processing required for the project. Can easily connect with Azure using a connection url.
-- 
+-
+
 ### Resources
-Hopefully this turns into a real resources section that can help more the website rather than myself. Currently is a way to learn how to build everyhting this defines. 
+
+Hopefully this turns into a real resources section that can help more the website rather than myself. Currently is a way to learn how to build everyhting this defines.
 Had AI do some sourcing, and took personal notes on top of that:
 
 1. **FastAPI**
+
 - Primary Resource: [The Official FastAPI Documentation](https://fastapi.tiangolo.com/). This is the single best resource, work your way through the "Tutorial - User Guide."
 
 - Database (SQLModel): The creator of FastAPI also made [SQLModel](https://sqlmodel.tiangolo.com/), which combines SQLAlchemy and Pydantic. The official SQLModel tutorial will show you exactly how to connect to PostgreSQL.
@@ -93,18 +114,20 @@ Had AI do some sourcing, and took personal notes on top of that:
 
 - Good Tutorial: ["Building Your First Full-Stack CRUD App with FastAPI and React.js"](https://dev.to/gilly7/building-your-first-full-stack-crud-app-with-fastapi-and-reactjs-3i1n) is a perfect guide for your first milestone.
 
-2. **React** 
+2. **React**
+
 - Primary Resource: The new [React.dev](https://react.dev/learn) Docs. The "Learn React" tutorial is the best, most modern way to learn. It covers Hooks (like useState and useEffect), which are essential for making API calls.
 
 - Connecting to an API: You'll need to learn how to make HTTP requests from React. You can use the built-in fetch function or a popular library like axios.
 
-3. **PostgreSQL** 
+3. **PostgreSQL**
+
 - Practical Tutorials: [Crunchy Data's Postgres Tutorials](https://www.crunchydata.com/developers/tutorials) offer practical, developer-focused guides.
 
 - Visual Tool: Download a free GUI tool like [pgAdmin](https://www.pgadmin.org/) or [DBeaver](https://dbeaver.io/). It makes visualizing your tables and data much easier.
 
 4. **AI / ML**
+
 - For General ML : Start with [Scikit-learn's "Getting Started" Guide](https://scikit-learn.org/stable/getting_started.html). You'll learn the fundamental fit/predict pattern.
 
 - For NLP (like sentiment or keyword extraction): Use the [Hugging Face Transformers](https://huggingface.co/docs/transformers/index) library. Their documentation has a "Tasks" section that shows you how to load a pre-trained model for "Sentiment Analysis" or "Text Classification" in just a few lines of code.
-
