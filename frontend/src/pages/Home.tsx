@@ -1,8 +1,14 @@
 import LiquidEther from "../components/LiquidEther";
 import GlassSurface from "../components/GlassSurface";
 import { Link } from "react-router";
-import React from "react";
-import LoginModal from "../components/LoginModal";
+
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  useUser,
+} from "@clerk/react-router";
 
 /**
  * Home Page Component
@@ -11,7 +17,7 @@ import LoginModal from "../components/LoginModal";
  * TODO : Add a login section, add intro and welcome.
  */
 export default function Home() {
-  const [loginOpen, setLoginOpen] = React.useState(false);
+  const { user } = useUser();
   return (
     <div className="relative h-screen w-full overflow-hidden">
       {/* The nav bar */}
@@ -67,17 +73,30 @@ export default function Home() {
               For keeping track when your day is wack.
             </p>
           </div>
-          <button
-            className="px-4 py-2 bg-[#5227FF] bg-opacity-60 text-white font-semibold rounded-full hover:bg-opacity-80 transition pointer-events-auto"
-            onClick={() => setLoginOpen(true)}
-          >
-            Login
-          </button>
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="px-4 py-2 bg-[#5227FF] bg-opacity-60 text-white font-semibold rounded-full hover:bg-opacity-80 transition pointer-events-auto">
+                Login
+              </button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <div className="flex flex-col items-center gap-3 pointer-events-auto">
+              <UserButton
+                appearance={{
+                  elements: {
+                    avatarBox: "w-10 h-10",
+                  },
+                }}
+              />
+              <span className="text-[#5227FF] font-medium text-lg">
+                Welcome back Jack! <br /> ... <br /> I mean{" "}
+                {user?.firstName || "guess you never told us"}!
+              </span>
+            </div>
+          </SignedIn>
         </div>
       </div>
-
-      {/* The Login Modal */}
-      {loginOpen && <LoginModal onClose={() => setLoginOpen(false)} />}
     </div>
   );
 }
